@@ -4,7 +4,8 @@ This documentation is for the stable release of HennHub, a custom UI library mad
 
 ## Booting the Library
 ```Lua
-local HennHub = loadstring(game:HttpGet('https://raw.githubusercontent.com/Hennxdtr/HennHub-UI/main/HennHub'))()```
+local HennHub = loadstring(game:HttpGet('https://raw.githubusercontent.com/Hennxdtr/HennHub-UI/main/HennHub'))()
+```
 
 ## Creating a Window
 ```Lua
@@ -13,7 +14,8 @@ HennHub:CreateWindow({
     TitleColor = Color3.fromRGB(0, 170, 255),
     Draggable = true,
     Size = UDim2.new(0, 640, 0, 480)
-})```
+})
+```
 
 ## Creating a Tab
 ```Lua
@@ -21,7 +23,8 @@ local Tab = Window:MakeTab({
     Name = "Farm",
     Icon = "rbxassetid://14541090253",
     PremiumOnly = false
-})```
+})
+```
 
 ## Creating a Button
 ```Lua
@@ -39,7 +42,8 @@ Tab:AddButton({
             game:GetService("ReplicatedStorage").Remote.ManagePet:FireServer(unpack(args))
         end
     end
-})```
+})
+```
 
 ## Author
 
