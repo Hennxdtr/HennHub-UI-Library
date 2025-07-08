@@ -1,12 +1,3 @@
- k)
-		return self[k]
-	end
-})
-
-end
-
-return HennHub
-
 -- HennHub UI Library Module -- Author: Not Henn -- GitHub: https://github.com/Hennxdtr/HennHub-UI -- Version: 1.0.0
 
 local HennHub = {} HennHub.__index = HennHub
