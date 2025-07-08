@@ -1,3 +1,12 @@
+ k)
+		return self[k]
+	end
+})
+
+end
+
+return HennHub
+
 -- HennHub UI Library Module -- Author: Not Henn -- GitHub: https://github.com/Hennxdtr/HennHub-UI -- Version: 1.0.0
 
 local HennHub = {} HennHub.__index = HennHub
@@ -40,18 +49,26 @@ title.TextStrokeTransparency = 0.4
 title.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
 title.Parent = frame
 
--- Toggle Button
-local toggle = Instance.new("ImageButton")
-toggle.Size = UDim2.new(0, 50, 0, 50)
-toggle.Position = UDim2.new(0, 10, 0.5, -25)
-toggle.BackgroundTransparency = 1
-toggle.Image = "rbxassetid://14541090253"
+-- Toggle Button (H Button)
+local toggle = Instance.new("TextButton")
+toggle.Size = UDim2.new(0, 60, 0, 60)
+toggle.Position = UDim2.new(0, 10, 0.5, -30)
+toggle.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+toggle.Text = "H"
+toggle.TextSize = 26
+toggle.TextColor3 = Color3.fromRGB(255, 0, 0)
+toggle.Font = Enum.Font.GothamBold
 toggle.Parent = ui
 toggle.Active = true
 toggle.Draggable = true
 
+local toggleCorner = Instance.new("UICorner")
+toggleCorner.CornerRadius = UDim.new(1, 0)
+toggleCorner.Parent = toggle
+
 toggle.MouseButton1Click:Connect(function()
 	frame.Visible = not frame.Visible
+	toggle.TextColor3 = frame.Visible and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
 end)
 
 -- Sidebar
