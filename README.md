@@ -1,24 +1,12 @@
-HennHub UI Library Documentation
+HennHub UI Library
 
-📦 HennHub is a custom UI library built for Roblox developers. It provides a modular and draggable interface system with tabs, buttons, and beautiful rounded designs — perfect for scripts and utilities.
+This documentation is for the stable release of HennHub, a custom UI library made by Not Henn.
 
+Booting the Library
 
----
+local HennHub = loadstring(game:HttpGet('https://raw.githubusercontent.com/Hennxdtr/HennHub-UI/main/HennHub'))()
 
-🚀 Getting Started
-
-1. Load the Library
-
-local HennHub = loadstring(game:HttpGet("https://raw.githubusercontent.com/Hennxdtr/HennHub-UI/main/HennHub"))()
-
-> Replace with your own GitHub raw link if needed.
-
-
-
-
----
-
-2. Create a Window
+Creating a Window
 
 local Window = HennHub:CreateWindow({
     Name = "HennHub",
@@ -27,47 +15,30 @@ local Window = HennHub:CreateWindow({
     Size = UDim2.new(0, 640, 0, 480)
 })
 
-Parameters:
+--[[
+Name = <string> - The name/title of the window.
+TitleColor = <Color3> - The color of the title text.
+Draggable = <bool> - Whether the window can be dragged.
+Size = <UDim2> - The size of the main window.
+]]
 
-Name: Title of the UI window
+Creating a Tab
 
-TitleColor: Color of the title text
-
-Draggable: Whether the frame can be dragged
-
-Size: The size of the main frame
-
-
-> This window includes the title, a toggle button with a Roblox icon, and a sidebar area.
-
-
-
-
----
-
-📁 Creating Tabs with MakeTab
-
-local FarmTab = Window:MakeTab({
+local Tab = Window:MakeTab({
     Name = "Farm",
     Icon = "rbxassetid://14541090253",
     PremiumOnly = false
 })
 
-Parameters:
+--[[
+Name = <string> - The name of the tab.
+Icon = <string> - The icon of the tab (rbxassetid).
+PremiumOnly = <bool> - (Unused) Reserved for future features.
+]]
 
-Name: Tab name (also appears in the sidebar)
+Creating a Button
 
-Icon: Optional icon (Roblox asset ID)
-
-PremiumOnly: Currently unused, reserved for future features
-
-
-
----
-
-🔘 Adding Buttons with AddButton
-
-FarmTab:AddButton({
+Tab:AddButton({
     Text = "Dupe Gems",
     Callback = function()
         local args = {
@@ -83,45 +54,30 @@ FarmTab:AddButton({
     end
 })
 
-Parameters:
+--[[
+Text = <string> - The label shown on the button.
+Callback = <function> - What the button does when clicked.
+]]
 
-Text: Label shown on the button
+Notes
 
-Callback: Function that runs when the button is clicked
+The UI includes a toggle button with Roblox icon to show/hide the main frame.
 
+All UI corners are rounded.
 
+Tabs are scrollable.
 
----
-
-🎨 Features
-
-✅ Rounded UI design
-
-✅ Draggable and toggle-able window
-
-✅ Sidebar navigation for tabs
-
-✅ Organized and dynamic content area
-
-✅ Scrollable tabs for future extensions
+Buttons stack vertically in each tab.
 
 
-
----
-
-👤 Author
+Author
 
 Created by: Not Henn
 
 GitHub: https://github.com/Hennxdtr/HennHub-UI
 
-Created: July 2025
 
+License
 
-
----
-
-📄 License
-
-Free to use and modify for personal or public scripts. Credit is appreciated ❤️
+Free to use, modify, and share. Please credit the original creator ❤️
 
