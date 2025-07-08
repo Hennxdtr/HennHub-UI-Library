@@ -1,0 +1,144 @@
+-- HennHub UI Library Module -- Author: Not Henn -- GitHub: https://github.com/yourusername/HennHub-UI
+
+local HennHub = {} HennHub.__index = HennHub
+
+local Players = game:GetService("Players") local LocalPlayer = Players.LocalPlayer local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+
+function HennHub:CreateWindow(config) local self = setmetatable({}, HennHub)
+
+-- Main UI
+local ui = Instance.new("ScreenGui")
+ui.Name = "HennHubUI"
+ui.ResetOnSpawn = false
+ui.Parent = PlayerGui
+
+-- Main Frame
+local frame = Instance.new("Frame")
+frame.Size = config.Size or UDim2.new(0, 640, 0, 480)
+frame.Position = UDim2.new(0.5, -frame.Size.X.Offset / 2, 0.5, -frame.Size.Y.Offset / 2)
+frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+frame.BorderSizePixel = 0
+frame.Visible = false
+frame.Parent = ui
+frame.Active = true
+frame.Draggable = config.Draggable or true
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 12)
+corner.Parent = frame
+
+-- Header
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(0, 180, 0, 30)
+title.Position = UDim2.new(0.5, -90, 0, -15)
+title.BackgroundTransparency = 1
+title.Text = config.Name or "HennHub"
+title.TextColor3 = config.TitleColor or Color3.fromRGB(0, 170, 255)
+title.Font = Enum.Font.Cartoon
+title.TextSize = 24
+title.TextStrokeTransparency = 0.4
+title.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+title.Parent = frame
+
+-- Toggle Button
+local toggle = Instance.new("ImageButton")
+toggle.Size = UDim2.new(0, 50, 0, 50)
+toggle.Position = UDim2.new(0, 10, 0.5, -25)
+toggle.BackgroundTransparency = 1
+toggle.Image = "rbxassetid://14541090253"
+toggle.Parent = ui
+toggle.Active = true
+toggle.Draggable = true
+
+toggle.MouseButton1Click:Connect(function()
+	frame.Visible = not frame.Visible
+end)
+
+-- Sidebar
+local sidebar = Instance.new("ScrollingFrame")
+sidebar.Name = "Sidebar"
+sidebar.Size = UDim2.new(0, 160, 1, 0)
+sidebar.Position = UDim2.new(0, 0, 0, 0)
+sidebar.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+sidebar.BorderSizePixel = 0
+sidebar.ScrollBarThickness = 6
+sidebar.AutomaticCanvasSize = Enum.AutomaticSize.Y
+sidebar.ScrollingDirection = Enum.ScrollingDirection.Y
+sidebar.Parent = frame
+
+local sidebarLayout = Instance.new("UIListLayout")
+sidebarLayout.SortOrder = Enum.SortOrder.LayoutOrder
+sidebarLayout.Padding = UDim.new(0, 10)
+sidebarLayout.Parent = sidebar
+
+local contentFrame = Instance.new("Frame")
+contentFrame.Name = "Content"
+contentFrame.Size = UDim2.new(1, -180, 1, -20)
+contentFrame.Position = UDim2.new(0, 170, 0, 10)
+contentFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+contentFrame.BorderSizePixel = 0
+contentFrame.Parent = frame
+
+local contentCorner = Instance.new("UICorner")
+contentCorner.CornerRadius = UDim.new(0, 10)
+contentCorner.Parent = contentFrame
+
+self.Tabs = {}
+self.Sidebar = sidebar
+self.Content = contentFrame
+
+return self
+
+end
+
+function HennHub:MakeTab(config) local tab = Instance.new("Frame") tab.Name = config.Name .. "Tab" tab.Size = UDim2.new(1, 0, 1, 0) tab.BackgroundTransparency = 1 tab.Visible = false tab.Parent = self.Content
+
+local layout = Instance.new("UIListLayout")
+layout.SortOrder = Enum.SortOrder.LayoutOrder
+layout.Padding = UDim.new(0, 10)
+layout.Parent = tab
+
+local button = Instance.new("TextButton")
+button.Name = config.Name .. "Button"
+button.Size = UDim2.new(1, -20, 0, 40)
+button.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+button.TextColor3 = Color3.fromRGB(255, 255, 255)
+button.Font = Enum.Font.SourceSansBold
+button.TextSize = 20
+button.Text = config.Name
+button.Parent = self.Sidebar
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 6)
+corner.Parent = button
+
+button.MouseButton1Click:Connect(function()
+	for _, t in pairs(self.Tabs) do
+		t.Visible = false
+	end
+	tab.Visible = true
+end)
+
+self.Tabs[config.Name] = tab
+return setmetatable({Frame = tab}, {
+	__index = function(_, k)
+		return self[k]
+	end
+})
+
+end
+
+function HennHub:AddButton(config) local button = Instance.new("TextButton") button.Size = UDim2.new(0, 140, 0, 40) button.BackgroundColor3 = Color3.fromRGB(40, 40, 40) button.TextColor3 = Color3.fromRGB(255, 255, 255) button.Font = Enum.Font.SourceSansBold button.TextSize = 18 button.Text = config.Text button.Parent = self.Frame
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 6)
+corner.Parent = button
+
+button.MouseButton1Click:Connect(function()
+	pcall(config.Callback)
+end)
+
+end
+
+return HennHub
+
