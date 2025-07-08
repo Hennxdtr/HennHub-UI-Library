@@ -1,4 +1,4 @@
--- HennHub UI Library Module -- Author: Not Henn -- GitHub: https://github.com/yourusername/HennHub-UI
+-- HennHub UI Library Module -- Author: Not Henn -- GitHub: https://github.com/Hennxdtr/HennHub-UI
 
 local HennHub = {} HennHub.__index = HennHub
 
