@@ -1,4 +1,4 @@
--- HennHub UI Library Module -- Author: Not Henn -- GitHub: https://github.com/Hennxdtr/HennHub-UI
+-- HennHub UI Library Module -- Author: Not Henn -- GitHub: https://github.com/Hennxdtr/HennHub-UI -- Version: 1.0.0
 
 local HennHub = {} HennHub.__index = HennHub
 
@@ -21,7 +21,7 @@ frame.BorderSizePixel = 0
 frame.Visible = false
 frame.Parent = ui
 frame.Active = true
-frame.Draggable = config.Draggable or true
+frame.Draggable = config.Draggable ~= false
 
 local corner = Instance.new("UICorner")
 corner.CornerRadius = UDim.new(0, 12)
@@ -71,6 +71,7 @@ sidebarLayout.SortOrder = Enum.SortOrder.LayoutOrder
 sidebarLayout.Padding = UDim.new(0, 10)
 sidebarLayout.Parent = sidebar
 
+-- Content Frame
 local contentFrame = Instance.new("Frame")
 contentFrame.Name = "Content"
 contentFrame.Size = UDim2.new(1, -180, 1, -20)
@@ -86,6 +87,12 @@ contentCorner.Parent = contentFrame
 self.Tabs = {}
 self.Sidebar = sidebar
 self.Content = contentFrame
+self.Frame = frame
+self.GUI = ui
+
+function self:Destroy()
+	ui:Destroy()
+end
 
 return self
 
@@ -120,23 +127,32 @@ button.MouseButton1Click:Connect(function()
 end)
 
 self.Tabs[config.Name] = tab
-return setmetatable({Frame = tab}, {
+
+return setmetatable({
+	Frame = tab,
+	AddButton = function(_, btnCfg)
+		local btn = Instance.new("TextButton")
+		btn.Size = UDim2.new(0, 140, 0, 40)
+		btn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+		btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+		btn.Font = Enum.Font.SourceSansBold
+		btn.TextSize = 18
+		btn.Text = btnCfg.Text
+		btn.Parent = tab
+
+		local btnCorner = Instance.new("UICorner")
+		btnCorner.CornerRadius = UDim.new(0, 6)
+		btnCorner.Parent = btn
+
+		btn.MouseButton1Click:Connect(function()
+			pcall(btnCfg.Callback)
+		end)
+	end
+}, {
 	__index = function(_, k)
 		return self[k]
 	end
 })
-
-end
-
-function HennHub:AddButton(config) local button = Instance.new("TextButton") button.Size = UDim2.new(0, 140, 0, 40) button.BackgroundColor3 = Color3.fromRGB(40, 40, 40) button.TextColor3 = Color3.fromRGB(255, 255, 255) button.Font = Enum.Font.SourceSansBold button.TextSize = 18 button.Text = config.Text button.Parent = self.Frame
-
-local corner = Instance.new("UICorner")
-corner.CornerRadius = UDim.new(0, 6)
-corner.Parent = button
-
-button.MouseButton1Click:Connect(function()
-	pcall(config.Callback)
-end)
 
 end
 
