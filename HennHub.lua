@@ -12,8 +12,8 @@ function HennHub:MakeWindow(options)
 
     local mainFrame = Instance.new("Frame", gui)
     mainFrame.Name = "MainFrame"
-    mainFrame.Size = UDim2.new(0, 460, 0, 300)
-    mainFrame.Position = UDim2.new(0.5, -230, 0.5, -150)
+    mainFrame.Size = UDim2.new(0, 460, 0, 320)
+    mainFrame.Position = UDim2.new(0.5, -230, 0.5, -160)
     mainFrame.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
     mainFrame.BackgroundTransparency = 0.2
     mainFrame.BorderSizePixel = 0
@@ -21,15 +21,25 @@ function HennHub:MakeWindow(options)
     mainFrame.Active = true
     mainFrame.Draggable = true
 
+    local header = Instance.new("TextLabel", mainFrame)
+    header.Size = UDim2.new(1, 0, 0, 30)
+    header.BackgroundTransparency = 1
+    header.Text = options.Name or "HennHub"
+    header.Font = Enum.Font.Cartoon
+    header.TextColor3 = Color3.new(1, 1, 1)
+    header.TextSize = 24
+    header.TextStrokeTransparency = 0.7
+    header.TextXAlignment = Enum.TextXAlignment.Center
+
     local sidebar = Instance.new("ScrollingFrame", mainFrame)
     sidebar.Name = "Sidebar"
-    sidebar.Size = UDim2.new(0, 120, 1, 0)
-    sidebar.Position = UDim2.new(0, 0, 0, 0)
+    sidebar.Size = UDim2.new(0, 120, 1, -30)
+    sidebar.Position = UDim2.new(0, 0, 0, 30)
     sidebar.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     sidebar.BackgroundTransparency = 0.3
-    sidebar.ScrollBarThickness = 5
     sidebar.BorderSizePixel = 0
     sidebar.CanvasSize = UDim2.new(0, 0, 1.5, 0)
+    sidebar.ScrollBarThickness = 0
 
     local sidebarLayout = Instance.new("UIListLayout", sidebar)
     sidebarLayout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -37,18 +47,18 @@ function HennHub:MakeWindow(options)
 
     local contentFrame = Instance.new("ScrollingFrame", mainFrame)
     contentFrame.Name = "Content"
-    contentFrame.Position = UDim2.new(0, 130, 0, 0)
-    contentFrame.Size = UDim2.new(1, -130, 1, 0)
+    contentFrame.Position = UDim2.new(0, 130, 0, 30)
+    contentFrame.Size = UDim2.new(1, -130, 1, -30)
+    contentFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     contentFrame.BackgroundTransparency = 0.3
     contentFrame.BorderSizePixel = 0
-    contentFrame.ScrollBarThickness = 6
     contentFrame.CanvasSize = UDim2.new(0, 0, 1.5, 0)
+    contentFrame.ScrollBarThickness = 0
 
     local contentLayout = Instance.new("UIListLayout", contentFrame)
     contentLayout.SortOrder = Enum.SortOrder.LayoutOrder
     contentLayout.Padding = UDim.new(0, 6)
 
-    -- H Button
     local toggleButton = Instance.new("TextButton", gui)
     toggleButton.Size = UDim2.new(0, 50, 0, 50)
     toggleButton.Position = UDim2.new(0, 20, 0.5, -25)
