@@ -1,5 +1,5 @@
 
---==[ HennHub UI Library - FIXED VERSION ]==--
+-- Versi ini memperbaiki masalah tab dan konten, serta memperbesar sedikit lebar container + memperkecil tinggi
 
 local HennHub = {}
 
@@ -112,7 +112,7 @@ function HennHub:MakeWindow(options)
 
         function tabObj:AddButton(text, callback)
             local container = Instance.new("Frame", tabContent)
-            container.Size = UDim2.new(1, -20, 0, 44)
+            container.Size = UDim2.new(1, -20, 0, 38) -- Sedikit lebih pendek
             container.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
             container.BorderSizePixel = 0
             container.Position = UDim2.new(0, 10, 0, 0)
@@ -122,7 +122,7 @@ function HennHub:MakeWindow(options)
             local label = Instance.new("TextLabel", container)
             label.AnchorPoint = Vector2.new(0, 0.5)
             label.Position = UDim2.new(0, 12, 0.5, 0)
-            label.Size = UDim2.new(1, -100, 0, 36)
+            label.Size = UDim2.new(1, -120, 0, 28)
             label.BackgroundTransparency = 1
             label.Text = text
             label.Font = Enum.Font.Cartoon
