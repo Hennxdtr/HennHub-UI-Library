@@ -1,3 +1,6 @@
+-- HennHub UI Library Final Version (Perbaikan tabContent)
+-- ✅ Tab content bisa menampilkan konten karena tingginya dinamis
+
 local HennHub = {}
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
@@ -50,17 +53,15 @@ function HennHub:MakeWindow(options)
     Instance.new("UIListLayout", sidebar).Padding = UDim.new(0, 0)
 
     -- FRAME KONTEN
-    local contentFrame = Instance.new("ScrollingFrame", mainFrame)
+    local contentFrame = Instance.new("Frame", mainFrame)
     contentFrame.Size = UDim2.new(1, -130, 1, -30)
     contentFrame.Position = UDim2.new(0, 130, 0, 30)
     contentFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     contentFrame.BackgroundTransparency = 0.3
-    contentFrame.CanvasSize = UDim2.new(0, 0, 1.5, 0)
-    contentFrame.ScrollBarThickness = 0
+    contentFrame.ClipsDescendants = true
 
     Instance.new("UICorner", contentFrame).CornerRadius = UDim.new(0, 6)
     Instance.new("UIStroke", contentFrame).Color = Color3.fromRGB(0, 170, 255)
-    Instance.new("UIListLayout", contentFrame).Padding = UDim.new(0, 6)
 
     -- TOMBOL H
     local toggleButton = Instance.new("TextButton", gui)
@@ -96,7 +97,6 @@ function HennHub:MakeWindow(options)
         toggleButton.TextColor3 = visible and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
     end)
 
-    -- Tab & Button Handler
     local tabs, activeTab = {}, nil
 
     local function switchTab(tabName)
@@ -124,11 +124,17 @@ function HennHub:MakeWindow(options)
         tabButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
         tabButton.BorderSizePixel = 0
 
-        local tabContent = Instance.new("Frame", contentFrame)
-        tabContent.Size = UDim2.new(1, -10, 0, 0)
+        local tabContent = Instance.new("ScrollingFrame", contentFrame)
+        tabContent.Size = UDim2.new(1, -10, 1, 0)
         tabContent.BackgroundTransparency = 1
         tabContent.Visible = false
-        Instance.new("UIListLayout", tabContent).Padding = UDim.new(0, 6)
+        tabContent.CanvasSize = UDim2.new(0, 0, 5, 0)
+        tabContent.AutomaticCanvasSize = Enum.AutomaticSize.Y
+        tabContent.ScrollBarThickness = 0
+
+        local layout = Instance.new("UIListLayout", tabContent)
+        layout.Padding = UDim.new(0, 6)
+        layout.SortOrder = Enum.SortOrder.LayoutOrder
 
         tabs[name] = {
             name = name,
