@@ -1,5 +1,3 @@
--- HennHub UI Library with Toggle Buttons
-
 local HennHub = {}
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
@@ -14,10 +12,12 @@ function HennHub:MakeWindow(options)
 
     local mainFrame = Instance.new("Frame", gui)
     mainFrame.Name = "MainFrame"
-    mainFrame.Size = UDim2.new(0, 460, 0, 360)
-    mainFrame.Position = UDim2.new(0.5, -230, 0.5, -180)
+    mainFrame.Size = UDim2.new(0, 460, 0, 300)
+    mainFrame.Position = UDim2.new(0.5, -230, 0.5, -150)
     mainFrame.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+    mainFrame.BackgroundTransparency = 0.2
     mainFrame.BorderSizePixel = 0
+    mainFrame.Visible = false
     mainFrame.Active = true
     mainFrame.Draggable = true
 
@@ -26,8 +26,9 @@ function HennHub:MakeWindow(options)
     sidebar.Size = UDim2.new(0, 120, 1, 0)
     sidebar.Position = UDim2.new(0, 0, 0, 0)
     sidebar.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-    sidebar.BorderSizePixel = 0
+    sidebar.BackgroundTransparency = 0.3
     sidebar.ScrollBarThickness = 5
+    sidebar.BorderSizePixel = 0
     sidebar.CanvasSize = UDim2.new(0, 0, 1.5, 0)
 
     local sidebarLayout = Instance.new("UIListLayout", sidebar)
@@ -38,7 +39,7 @@ function HennHub:MakeWindow(options)
     contentFrame.Name = "Content"
     contentFrame.Position = UDim2.new(0, 130, 0, 0)
     contentFrame.Size = UDim2.new(1, -130, 1, 0)
-    contentFrame.BackgroundTransparency = 1
+    contentFrame.BackgroundTransparency = 0.3
     contentFrame.BorderSizePixel = 0
     contentFrame.ScrollBarThickness = 6
     contentFrame.CanvasSize = UDim2.new(0, 0, 1.5, 0)
@@ -46,6 +47,40 @@ function HennHub:MakeWindow(options)
     local contentLayout = Instance.new("UIListLayout", contentFrame)
     contentLayout.SortOrder = Enum.SortOrder.LayoutOrder
     contentLayout.Padding = UDim.new(0, 6)
+
+    -- H Button
+    local toggleButton = Instance.new("TextButton", gui)
+    toggleButton.Size = UDim2.new(0, 50, 0, 50)
+    toggleButton.Position = UDim2.new(0, 20, 0.5, -25)
+    toggleButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    toggleButton.BackgroundTransparency = 0.4
+    toggleButton.Text = "H"
+    toggleButton.Font = Enum.Font.Cartoon
+    toggleButton.TextSize = 28
+    toggleButton.TextColor3 = Color3.fromRGB(255, 0, 0)
+    toggleButton.Active = true
+    toggleButton.Draggable = true
+    toggleButton.ZIndex = 100
+
+    local corner = Instance.new("UICorner", toggleButton)
+    corner.CornerRadius = UDim.new(1, 0)
+
+    local shadow = Instance.new("TextLabel", toggleButton)
+    shadow.Text = "H"
+    shadow.Font = Enum.Font.Cartoon
+    shadow.TextSize = 28
+    shadow.TextColor3 = Color3.fromRGB(255, 255, 255)
+    shadow.Position = UDim2.new(0, 2, 0, 2)
+    shadow.Size = UDim2.new(1, 0, 1, 0)
+    shadow.BackgroundTransparency = 1
+    shadow.ZIndex = 99
+
+    local visible = false
+    toggleButton.MouseButton1Click:Connect(function()
+        visible = not visible
+        mainFrame.Visible = visible
+        toggleButton.TextColor3 = visible and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
+    end)
 
     local tabs = {}
     local activeTab = nil
